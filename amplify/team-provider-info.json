@@ -10,6 +10,11 @@
       "StackName": "amplify-mealsplanner-dev-211030",
       "StackId": "arn:aws:cloudformation:us-west-1:572617990153:stack/amplify-mealsplanner-dev-211030/c1c2bac0-9d37-11ed-8e22-0272b7141f97",
       "AmplifyAppId": "diq9sqbualr1t"
+    },
+    "categories": {
+      "auth": {
+        "mealsplanner3de63fb0": {}
+      }
     }
   }
 }
