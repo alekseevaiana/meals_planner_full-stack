@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mealsplanner-dev-211030-authRole",
+      "UnauthRoleArn": "arn:aws:iam::572617990153:role/amplify-mealsplanner-dev-211030-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::572617990153:role/amplify-mealsplanner-dev-211030-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-mealsplanner-dev-211030-deployment",
+      "UnauthRoleName": "amplify-mealsplanner-dev-211030-unauthRole",
+      "StackName": "amplify-mealsplanner-dev-211030",
+      "StackId": "arn:aws:cloudformation:us-west-1:572617990153:stack/amplify-mealsplanner-dev-211030/c1c2bac0-9d37-11ed-8e22-0272b7141f97",
+      "AmplifyAppId": "diq9sqbualr1t"
+    }
+  }
+}
