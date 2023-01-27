@@ -1,6 +1,7 @@
 import { useState, useEffect, SyntheticEvent } from 'react'
 import { DataStore } from 'aws-amplify'
 import logo from './logo.svg'
+import useData from './hooks/use-data'
 import './App.css'
 import { Ingredient } from './models'
 ;(async function () {
@@ -10,29 +11,38 @@ import { Ingredient } from './models'
 
 function App() {
   const [name, setName] = useState('')
-  const [all, setAll] = useState<Ingredient[]>([])
 
-  useEffect(() => {
-    DataStore.query(Ingredient).then(setAll)
-  }, [])
+  const { data, loading, error } = useData(Ingredient)
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
-    const i = await DataStore.save(new Ingredient({ name }))
+    if (name === '') {
+      return
+    }
+    await DataStore.save(new Ingredient({ name }))
     setName('')
-    setAll(a => [...a, i])
+  }
+
+  if (loading) {
+    return <b>Loading</b>
+  }
+
+  if (error) {
+    return <div>{error.toString()}</div>
   }
 
   return (
     <div className="App">
       <ul>
-        {all.map(i => (
+        {data?.map(i => (
           <li key={i.id}>{i.name}</li>
         ))}
       </ul>
       <form onSubmit={handleSubmit}>
         <input type="text" value={name} onChange={e => setName(e.target.value)} />
-        <button type="submit">Create</button>
+        <button type="submit" disabled={name === ''}>
+          Create
+        </button>
       </form>
     </div>
   )
