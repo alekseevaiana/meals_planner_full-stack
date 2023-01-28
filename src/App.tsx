@@ -1,9 +1,13 @@
 import { useState, useEffect, SyntheticEvent } from 'react'
+import { Route, Routes } from 'react-router-dom'
 import { DataStore } from 'aws-amplify'
 import logo from './logo.svg'
 import useData from './hooks/use-data'
 import './App.css'
 import { Ingredient } from './models'
+import Grocery from './Grocery'
+import Plan from './Plan'
+import Meals from './Meals'
 ;(async function () {
   const ingridients = await DataStore.query(Ingredient)
   console.log(ingridients)
@@ -44,6 +48,11 @@ function App() {
           Create
         </button>
       </form>
+      <Routes>
+        <Route path="/grocery" element={<Grocery />}></Route>
+        <Route path="/plan" element={<Plan />}></Route>
+        <Route path="/meals" element={<Meals />}></Route>
+      </Routes>
     </div>
   )
 }
