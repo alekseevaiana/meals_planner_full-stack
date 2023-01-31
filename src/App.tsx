@@ -1,13 +1,18 @@
 import { useState, useEffect, SyntheticEvent } from 'react'
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore'
+import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
 import { Route, Routes } from 'react-router-dom'
 import { DataStore } from 'aws-amplify'
 import logo from './logo.svg'
 import useData from './hooks/use-data'
 import './App.css'
 import { Ingredient } from './models'
-import Grocery from './Grocery'
-import Plan from './Plan'
-import Meals from './Meals'
+import Grocery from './Pages/Grocery'
+import Plan from './Pages/Plan'
+import Meals from './Pages/Meals'
+import { BottomNavigation, BottomNavigationAction, Box, Paper } from '@mui/material'
+import Navigation from './components/Navigation'
 ;(async function () {
   const ingridients = await DataStore.query(Ingredient)
   console.log(ingridients)
@@ -36,7 +41,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <Box className="App">
       <ul>
         {data?.map(i => (
           <li key={i.id}>{i.name}</li>
@@ -49,11 +54,12 @@ function App() {
         </button>
       </form>
       <Routes>
-        <Route path="/grocery" element={<Grocery />}></Route>
-        <Route path="/plan" element={<Plan />}></Route>
-        <Route path="/meals" element={<Meals />}></Route>
+        <Route path="/grocery" element={<Grocery />} />
+        <Route path="/plan" element={<Plan />} />
+        <Route path="/" element={<Meals />} />
       </Routes>
-    </div>
+      <Navigation />
+    </Box>
   )
 }
 
