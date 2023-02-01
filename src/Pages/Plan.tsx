@@ -1,3 +1,3 @@
 export default function Plan() {
-  return <h1>Plan</h1>
+  return <h1 data-testid="title">Plan</h1>
 }

@@ -1,3 +1,3 @@
 export default function Grocery() {
-  return <h1>Grocery</h1>
+  return <h1 data-testid="title">Grocery</h1>
 }

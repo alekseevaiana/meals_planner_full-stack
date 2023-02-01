@@ -1,3 +1,3 @@
 export default function Meals() {
-  return <h1>Meals</h1>
+  return <h1 data-testid="title">Meals</h1>
 }
