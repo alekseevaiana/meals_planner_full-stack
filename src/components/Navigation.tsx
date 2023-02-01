@@ -6,22 +6,11 @@ import { useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 
 export default function Navigation() {
-  const location = useLocation()
   const [value, setValue] = useState(1)
-  console.log('location', location.pathname)
-  const handleChange = () => {
-    console.log('handle', location.pathname)
-    if (location.pathname === '/grocery') {
-      setValue(0)
-    }
-    if (location.pathname === '/') {
-      setValue(1)
-    }
-    if (location.pathname === 'plan') {
-      setValue(2)
-    }
-  }
 
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue)
+  }
   return (
     <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
       <BottomNavigation showLabels value={value} onChange={handleChange}>
