@@ -1,9 +1,24 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import App from './App'
+import userEvent from '@testing-library/user-event'
 
-test('renders learn react link', () => {
-  render(<App />)
-  const linkElement = screen.getByText(/learn react/i)
-  expect(linkElement).toBeInTheDocument()
+import App from './App'
+import { BrowserRouter, MemoryRouter } from 'react-router-dom'
+
+test('switch between pages', async () => {
+  render(<App />, { wrapper: BrowserRouter })
+  const user = userEvent.setup()
+
+  let title = screen.getByTestId('title')
+  expect(title.textContent).toBe('Meals')
+
+  await user.click(screen.getByText(/Grocery/i))
+
+  title = screen.getByTestId('title')
+  expect(title.textContent).toBe('Grocery')
+
+  await user.click(screen.getByText(/Plan/i))
+
+  title = screen.getByTestId('title')
+  expect(title.textContent).toBe('Plan')
 })
