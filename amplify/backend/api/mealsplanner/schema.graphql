@@ -2,9 +2,45 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
+enum Unit {
+  GRAM
+  KILOGRAM
+  LITER
+}
+
 # Represent one Ingredient created by user
 type Ingredient @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
   isGrossery: Boolean
+  isInBasket: Boolean
+
+  # Back reference to all MealIngredient(s) to get meal for given Ingredient
+  ingredients: [MealIngredient!]! @hasMany(indexName: "byIngredient", fields: ["id"])
+}
+
+# Represent one meal. Contains list of ingredients and amounts
+type Meal @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  notes: String
+  isInPlan: Boolean
+  ingredients: [MealIngredient!]! @hasMany(indexName: "byMeal", fields: ["id"])
+}
+
+# Used to store amount of ingredients in meal
+type MealIngredient @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  notes: String
+  unit: Unit!
+  value: Float!
+  isInPlan: Boolean
+
+  mealID: ID! @index(name: "byMeal", sortKeyFields: ["name"])
+  meal: Meal! @belongsTo(fields: ["mealID"])
+
+  # Relation to ingredient
+  ingredientID: ID! @index(name: "byIngredient", sortKeyFields: ["name"])
+  ingredient: Ingredient! @belongsTo(fields: ["ingredientID"])
 }
