@@ -16,7 +16,7 @@ type Ingredient @model @auth(rules: [{ allow: owner }]) {
   isInBasket: Boolean
 
   # Back reference to all MealIngredient(s) to get meal for given Ingredient
-  ingredients: [MealIngredient!]! @hasMany(indexName: "byIngredient", fields: ["id"])
+  mealIngredients: [MealIngredient!]! @hasMany(indexName: "byIngredient", fields: ["id"])
 }
 
 # Represent one meal. Contains list of ingredients and amounts
@@ -25,17 +25,14 @@ type Meal @model @auth(rules: [{ allow: owner }]) {
   name: String!
   notes: String
   isInPlan: Boolean
-  ingredients: [MealIngredient!]! @hasMany(indexName: "byMeal", fields: ["id"])
+  mealIngredients: [MealIngredient!]! @hasMany(indexName: "byMeal", fields: ["id"])
 }
 
 # Used to store amount of ingredients in meal
 type MealIngredient @model @auth(rules: [{ allow: owner }]) {
   id: ID!
-  name: String!
-  notes: String
   unit: Unit!
   value: Float!
-  isInPlan: Boolean
 
   mealID: ID! @index(name: "byMeal", sortKeyFields: ["name"])
   meal: Meal! @belongsTo(fields: ["mealID"])
