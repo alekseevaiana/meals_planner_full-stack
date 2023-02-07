@@ -2,8 +2,11 @@
 
 Commands
 
-```
 # To generate models from GraphQL schema
+
+Manually add models backend/api/schema.graphql
+
+```
 npm run amplify-modelgen
 ```
 
